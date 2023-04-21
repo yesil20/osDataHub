@@ -12,4 +12,14 @@ public class MainPage extends BaseClass {
     @FindBy(id = "ccc-notify-accept")
     public WebElement acceptCookies;
 
+    public WebElement APIDashboard;
+
+    public WebElement Download;
+
+    public WebElement Docs;
+
+    public WebElement Support;
+
+    public WebElement Pricing;
+
 }
