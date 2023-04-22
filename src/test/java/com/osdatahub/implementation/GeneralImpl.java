@@ -2,18 +2,24 @@ package com.osdatahub.implementation;
 
 import com.osdatahub.pageObjects.DocsPage;
 import com.osdatahub.pageObjects.MainPage;
+import com.osdatahub.pojo.DownloadsApi;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.example.BaseClass;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
+
 public class GeneralImpl extends BaseClass {
     MainPage mainPage = new MainPage();
 
+
     DocsPage docsPage = new DocsPage();
+
     public void clickByName(String name){
         returnElement(name).click();
     }
@@ -54,27 +60,52 @@ public class GeneralImpl extends BaseClass {
         List<WebElement> pageList = new ArrayList<>();
         switch (page.toLowerCase()) {
             case "docs_page_side_menu":
-                //  pageList.add();
-                //  add 11 elements
-                pageList.add(mainPage.featuresApi);
-                pageList.add(mainPage.ngdTilesApi);
-                pageList.add(mainPage.downloadsApi);
-                pageList.add(mainPage.linkedIdentifiersApi);
-                pageList.add(mainPage.mapsApi);
-                pageList.add(mainPage.matchApi);
-                pageList.add(mainPage.namesApi);
-                pageList.add(mainPage.placesApi);
-                pageList.add(mainPage.vectorApi);
-                pageList.add(mainPage.oauthApi);
+                pageList.add(docsPage.featuresApi);
+                pageList.add(docsPage.ngdTilesApi);
+                pageList.add(docsPage.downloadsApi);
+                pageList.add(docsPage.linkedIdentifiersApi);
+                pageList.add(docsPage.mapsApi);
+                pageList.add(docsPage.matchApi);
+                pageList.add(docsPage.namesApi);
+                pageList.add(docsPage.placesApi);
+                pageList.add(docsPage.vectorApi);
+                pageList.add(docsPage.oauthApi);
 
                 break;
         }
 
         for (WebElement element:pageList) {
             element.click();
-            Assert.assertTrue(mainPage.overview.isDisplayed());
-            Assert.assertTrue(mainPage.gettingStarted.isDisplayed());
-            Assert.assertTrue(mainPage.techSpecification.isDisplayed());
+            Assert.assertTrue(docsPage.overview.isDisplayed());
+            Assert.assertTrue(docsPage.gettingStarted.isDisplayed());
+            Assert.assertTrue(docsPage.techSpecification.isDisplayed());
+        }
+    }
+    public Response callAPI(String endpoint){
+        Response response = given().accept(ContentType.JSON)
+                .when().get(endpoint);
+        return response;
+    }
+
+    public DownloadsApi callAPIAndConvertPojo(Response response){
+         response = given().accept(ContentType.JSON)
+                .when().get("https://api.os.uk/downloads/v1");
+
+        DownloadsApi downloadsApi =response.body().as(DownloadsApi.class);
+        return downloadsApi;
+    }
+
+    public void verifyResponse(Response response ,String verify, String expectedResult){
+        switch (verify.toLowerCase()){
+            case "response_status_code":
+                Assert.assertEquals(expectedResult, String.valueOf(response.getStatusCode()));
+                break;
+            case "title":
+                Assert.assertEquals(expectedResult,callAPIAndConvertPojo(response).getTitle());
+                break;
+            case "description":
+                Assert.assertEquals(expectedResult,callAPIAndConvertPojo(response).getDescription());
+                break;
         }
     }
 }

@@ -3,11 +3,11 @@ package com.osdatahub.stepdefs;
 import com.osdatahub.implementation.GeneralImpl;
 import com.osdatahub.pageObjects.MainPage;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.example.BaseClass;
 
 public class GeneralStepDefs extends BaseClass {
-    MainPage mainPage =new MainPage();
     GeneralImpl general = new GeneralImpl();
 
     @When("user open main page on browser")
@@ -26,5 +26,10 @@ public class GeneralStepDefs extends BaseClass {
     public void navigateAndVerify(String menu, String page) {
         general.clickByName(page);
         general.verifyMenu(menu);
+    }
+
+    @Given("the user calls API {string} and verifies {string} as {string}")
+    public void verifyResponse(String endpoint, String verify, String expectedResult) {
+        general.verifyResponse(general.callAPI(endpoint), verify,expectedResult);
     }
 }
