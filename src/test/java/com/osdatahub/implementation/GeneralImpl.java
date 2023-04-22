@@ -28,6 +28,7 @@ public class GeneralImpl extends BaseClass {
                 finalElement = mainPage.APIDashboard;
                 break;
             case "docs":
+                finalElement = mainPage.Download;
                 break;
         }
         return finalElement;
@@ -53,14 +54,23 @@ public class GeneralImpl extends BaseClass {
         List<WebElement> pageList = new ArrayList<>();
         switch (page.toLowerCase()) {
             case "docs_page_side_menu":
-//                pageList.add();
-                // 11 tane soldaki elementleri ekle
+                //  pageList.add();
+                //  add 11 elements
+                pageList.add(mainPage.featuresApi);
+                pageList.add(mainPage.ngdTilesApi);
+                pageList.add(mainPage.downloadsApi);
+                pageList.add(mainPage.linkedIdentifiersApi);
+                pageList.add(mainPage.mapsApi);
+                pageList.add(mainPage.matchApi);
+                pageList.add(mainPage.namesApi);
+                pageList.add(mainPage.placesApi);
+                pageList.add(mainPage.vectorApi);
+                pageList.add(mainPage.oauthApi);
+
                 break;
         }
+
         for (WebElement element:pageList) {
-            //side menudeki bir tanesine tikla alt manu acilsin sonra bunun altina 3 tane butonu isdispalyeed
-            //element.click();
-            // her bir elementin icindeki 3 adet elementi ekle
             Assert.assertTrue(element.isDisplayed());
             Assert.assertTrue(element.isDisplayed());
             Assert.assertTrue(element.isDisplayed());

@@ -22,4 +22,24 @@ public class MainPage extends BaseClass {
 
     public WebElement Pricing;
 
+    public WebElement ngdTilesApi;
+    public WebElement downloadsApi;
+
+    public WebElement featuresApi;
+    public WebElement linkedIdentifiersApi;
+    public WebElement mapsApi;
+
+
+    public WebElement matchApi;
+    public WebElement namesApi;
+    public WebElement placesApi;
+    public WebElement vectorApi;
+    public WebElement oauthApi;
+
+
+
+
+
+
+
 }
