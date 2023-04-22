@@ -28,7 +28,7 @@ public class GeneralImpl extends BaseClass {
                 finalElement = mainPage.APIDashboard;
                 break;
             case "docs":
-                finalElement = mainPage.Download;
+                finalElement = mainPage.Docs;
                 break;
         }
         return finalElement;
@@ -71,9 +71,10 @@ public class GeneralImpl extends BaseClass {
         }
 
         for (WebElement element:pageList) {
-            Assert.assertTrue(element.isDisplayed());
-            Assert.assertTrue(element.isDisplayed());
-            Assert.assertTrue(element.isDisplayed());
+            element.click();
+            Assert.assertTrue(mainPage.overview.isDisplayed());
+            Assert.assertTrue(mainPage.gettingStarted.isDisplayed());
+            Assert.assertTrue(mainPage.techSpecification.isDisplayed());
         }
     }
 }

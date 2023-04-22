@@ -13,6 +13,7 @@ public class GeneralStepDefs extends BaseClass {
     @When("user open main page on browser")
     public void openMainPage() {
         getDriver().get(url);
+        getDriver().manage().window().maximize();
         general.clickByName("acceptCookies");
     }
 
